@@ -10,6 +10,8 @@ import axios from 'axios'
 import { LeafletMouseEvent } from 'leaflet'
 import api from '../../services/api'
 
+import Dropzone from '../../components/Dropzone'
+
 import {
   Container,
   Field,
@@ -61,6 +63,7 @@ const CreatePoint: React.FC = () => {
     0,
     0,
   ])
+  const [selectedFile, setSelectedFile] = useState<File>()
 
   const history = useHistory()
 
@@ -148,15 +151,19 @@ const CreatePoint: React.FC = () => {
     const [latitude, longitude] = selectedPosition
     const item = selectedItems
 
-    const data = {
-      name,
-      email,
-      whatsapp,
-      uf,
-      city,
-      latitude,
-      longitude,
-      items: item,
+    const data = new FormData()
+
+    data.append('name', name)
+    data.append('email', email)
+    data.append('whatsapp', whatsapp)
+    data.append('uf', uf)
+    data.append('city', city)
+    data.append('latitude', String(latitude))
+    data.append('longitude', String(longitude))
+    data.append('items', item.join(','))
+
+    if (selectedFile) {
+      data.append('image', selectedFile)
     }
 
     await api.post('points', data)
@@ -180,6 +187,8 @@ const CreatePoint: React.FC = () => {
         <h1>
           Cadastro do <br /> ponto de coleta
         </h1>
+
+        <Dropzone onFileUploaded={setSelectedFile} />
 
         <fieldset>
           <legend>
@@ -225,14 +234,16 @@ const CreatePoint: React.FC = () => {
             <span>Selecione o endereço no mapa</span>
           </legend>
 
-          <Map center={initialPosition} zoom={15} onClick={handleMapClick}>
-            <TileLayer
-              attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
+          <LeafletContainer>
+            <Map center={initialPosition} zoom={15} onClick={handleMapClick}>
+              <TileLayer
+                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
 
-            <Marker position={selectedPosition} />
-          </Map>
+              <Marker position={selectedPosition} />
+            </Map>
+          </LeafletContainer>
 
           <FieldGroup>
             <Field>

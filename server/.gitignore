@@ -7,3 +7,6 @@ temp/
 
 tmp/*
 !tmp/.gitkeep
+uploads/*
+
+*.sqlite
