@@ -1,13 +1,4 @@
 import styled from 'styled-components'
-// import {
-//   Map as MapLeaflet,
-//   TileLayer as TileLeaflet,
-//   Marker as MarkerLeaflet,
-// } from 'react-leaflet'
-
-// export const Map = styled(MapLeaflet)``
-// export const TileLayer = styled(TileLeaflet)``
-// export const Marker = styled(MarkerLeaflet)``
 
 export const Container = styled.div`
   width: 100%;
@@ -24,7 +15,7 @@ export const Header = styled.header`
   align-items: center;
 
   a {
-    color: var(--title-color);
+    color: ${props => props.theme.colors.text};
     font-weight: bold;
     text-decoration: none;
 

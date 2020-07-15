@@ -43,7 +43,7 @@ export const Main = styled.main`
 
   h1 {
     font-size: 54px;
-    color: var(--title-color);
+    color: ${props => props.theme.colors.text};
   }
 
   p {

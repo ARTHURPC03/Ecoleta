@@ -8,6 +8,7 @@ import { FiArrowLeft } from 'react-icons/fi'
 import { Map, TileLayer, Marker } from 'react-leaflet'
 import axios from 'axios'
 import { LeafletMouseEvent } from 'leaflet'
+
 import api from '../../services/api'
 
 import Dropzone from '../../components/Dropzone'
@@ -15,15 +16,12 @@ import Dropzone from '../../components/Dropzone'
 import {
   Container,
   Field,
-  FieldCheck,
   FieldGroup,
   Form,
   Header,
   ItemsGrid,
   LeafletContainer,
 } from './styles'
-
-import logo from '../../assets/logo.svg'
 
 interface Item {
   id: number
@@ -176,8 +174,6 @@ const CreatePoint: React.FC = () => {
   return (
     <Container>
       <Header>
-        <img src={logo} alt="Ecoleta" />
-
         <Link to="/">
           <FiArrowLeft />
           Voltar para home
@@ -231,14 +227,14 @@ const CreatePoint: React.FC = () => {
         <fieldset>
           <legend>
             <h2>Endereço</h2>
-            <span>Selecione o endereço no mapa</span>
+            {/* <span>Selecione o endereço no mapa</span> */}
           </legend>
 
           <LeafletContainer>
             <Map center={initialPosition} zoom={15} onClick={handleMapClick}>
               <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                url={`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`}
               />
 
               <Marker position={selectedPosition} />

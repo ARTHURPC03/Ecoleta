@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FiLogIn } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+import { ThemeContext } from 'styled-components'
 
 import { Container, Content, Header, Main } from './styles'
 
-import logo from '../../assets/logo.svg'
-
 const Home: React.FC = () => {
+  const { logo } = useContext(ThemeContext)
+
   return (
     <Container>
       <Content>
